@@ -15,15 +15,19 @@
 #define CONF 4 // configuration
 
 // keyaliases
-#define OS_SFT OSM(MOD_LSFT)
+#define OS_SFT  OSM(MOD_LSFT)
 #define OS_CTRL OSM(MOD_LCTL)
-#define OS_ALT OSM(MOD_LALT)
-#define OS_GUI OSM(MOD_LGUI)
-#define OS_MEH OSM(MOD_MEH)
+#define OS_ALT  OSM(MOD_LALT)
+#define OS_GUI  OSM(MOD_LGUI)
+#define OS_MEH  OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
 #define OS_SYMB OSL(SYMB)
 #define TG_NAVI TG(NAVI)
+
+#define WC_PRNT LSFT(LGUI(KC_4))
+#define WC_1PW  LGUI(KC_BSLS)
+#define WC_1PWM LALT(LGUI(KC_BSLS))
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -33,50 +37,51 @@ enum custom_keycodes {
 };
 
 enum {
-  TD_B_NUMP = 0
+  TD_J_NUMP = 0,
+  TD_J_BASE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |   1  |   2  |   3  |   4  |   5  |      |           |      |   6  |   7  |   8  |   9  |   0  |        |
+ * |  CONF  |   1  |   2  |   3  |   4  |   5  |      |           | 1PWM |   6  |   7  |   8  |   9  |   0  |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   Q  |   W  |   F  |   P  |   B  |      |           |      |   J  |   L  |   U  |   Y  |   ;  |        |
+ * |        |   Q  |   W  |   F  |   P  |   B  | PRINT|           | 1PWD |   J  |   L  |   U  |   Y  |   ;  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   ESC  |   A  |   R  |   S  |   T  |   G  |------|           |------|   K  |   N  |   E  |   I  |   O  |    '   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  SHIFT |   Z  |   X  |   C  |   D  |   V  |      |           |      |   M  |   H  |   ,  |   .  |   /  |  SHIFT |
+ * |  SHIFT |   Z  |   X  |   C  |   D  |   V  | HYPER|           |  MEH |   M  |   H  |   ,  |   .  |   /  |  SHIFT |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | CTRL |      |      |  ALT | SYMB |                                       | NAVI |  ALT |      |      | CTRL |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |       |
- *                                 ,------|------|------|       |------+-------+------.
- *                                 |      |      |      |       |      |       |      |
- *                                 | Space|  Tab |------|       |------| Back- |Enter |
- *                                 |      |      |  GUI |       |  GUI | space |      |
- *                                 `--------------------'       `---------------------'
+ *                                        | MUTE | PLAY |       | VOLDN| VOLUP|
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 | Space|  Tab |------|       |------| Back-|Enter |
+ *                                 |      |      |  GUI |       |  GUI | space|      |
+ *                                 `--------------------'       `--------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______,
-        _______,    KC_Q,    KC_W,    KC_F,    KC_P, TD(TD_B_NUMP), _______,
+       TG(CONF),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______,
+        _______,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B, WC_PRNT,
          KC_ESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,
-         OS_SFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, _______,
+         OS_SFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, OS_HYPR,
         OS_CTRL, _______, _______,  OS_ALT, OS_SYMB,
-                                                     _______, _______,
+                                                     KC_MUTE, KC_MPLY,
                                                               _______,
                                              KC_SPC,  KC_TAB,  OS_GUI,
         // right hand
-             _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
-             _______,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, _______,
+             WC_1PWM,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
+              WC_1PW, TD(TD_J_NUMP),    KC_L,    KC_U,    KC_Y, KC_SCLN, _______,
                          KC_K,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
-             _______,    KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  OS_SFT,
+              OS_MEH,    KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  OS_SFT,
                                TG_NAVI,  OS_ALT, _______, _______, OS_CTRL,
-             _______, _______,
+             KC_VOLD, KC_VOLU,
              _______,
               OS_GUI, KC_BSPC,  KC_ENT
     ),
@@ -154,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______,
                                   KC_LGUI, _______, _______,
     // right hand
-       _______,  _______, _______, _______, _______, _______,   RESET,
+       _______,  _______, _______, _______, _______, _______, _______,
        _______,  _______, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______,
                  _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
        _______,  _______, _______, _______, _______, _______, _______,
@@ -180,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |------|       |------|      |   #  |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -196,19 +201,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______, _______, _______,
     // right hand
        _______,  _______, _______, _______, _______, _______, _______,
-       _______,  _______,    KC_7,    KC_8,    KC_9, _______, _______,
+       _______,  TD(TD_J_BASE),    KC_7,    KC_8,    KC_9, _______, _______,
                  _______,    KC_4,    KC_5,    KC_6, _______, _______,
        _______,  _______,    KC_1,    KC_2,    KC_3, _______, _______,
                              KC_0,    KC_0, KC_PCMM, _______, _______,
        _______, _______,
        _______,
-       _______, _______, _______
+       _______, _______, KC_HASH
 ),
+/* Keymap 4: Configuration keys
+   *
+   * ,--------------------------------------------------.           ,--------------------------------------------------.
+   * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |  RESET |
+   * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+   * |        |      |      |      |      |      |      |           |      |      | HUEUP| SATUP| VALUP|      |        |
+   * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+   * |        |      |      |      |      |      |------|           |------|      | HUEDN| SATDN| VALDN|      |        |
+   * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+   * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+   * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+   *   |      |      |      |      |      |                                       |      |      |      |      |      |
+   *   `----------------------------------'                                       `----------------------------------'
+   *                                        ,-------------.       ,-------------.
+   *                                        |      |      |       |      |      |
+   *                                 ,------|------|------|       |------+------+------.
+   *                                 |      |      |      |       |      | NEXT |  TOGL |
+   *                                 |      |      |------|       |------| ANIM |  RGB |
+   *                                 |      |      |      |       |L ANIM|      |      |
+   *                                 `--------------------'       `--------------------'
+   */
+  // Numpad
+  [CONF] = LAYOUT_ergodox(
+         _______, _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______, _______, _______,
+         _______, _______, _______, _______, _______,
+                                             _______, _______,
+                                                      _______,
+                                    _______, _______, _______,
+      // right hand
+         _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   RESET,
+         _______,  XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, XXXXXXX,
+                   XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, _______,
+         _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+                            _______, _______, _______, _______, _______,
+         _______, _______,
+         _______,
+        RGB_RMOD, RGB_MOD, RGB_TOG
+  ),
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
-  [TD_B_NUMP]  = ACTION_TAP_DANCE_DOUBLE(KC_B, TG(NUMP))
+  //Tap once for B, twice for Numpad Layer
+  [TD_J_NUMP]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_J, NUMP),
+  [TD_J_BASE]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_J, BASE)
 // Other declarations would go here, separated by commas, if you have them
 };
 

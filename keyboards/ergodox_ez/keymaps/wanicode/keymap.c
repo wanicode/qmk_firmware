@@ -29,6 +29,15 @@
 #define WC_1PW  LGUI(KC_BSLS)
 #define WC_1PWM LALT(LGUI(KC_BSLS))
 
+#define WC_SFTT LSFT_T(KC_T)
+#define WC_ALTS LALT_T(KC_S)
+#define WC_CTLR LCTL_T(KC_R)
+#define WC_SFTN LSFT_T(KC_N)
+#define WC_ALTE LALT_T(KC_E)
+#define WC_CTLI LCTL_T(KC_I)
+#define WC_GUIS LGUI_T(KC_SPC)
+#define WC_GUIE LGUI_T(KC_ENT)
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -49,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   Q  |   W  |   F  |   P  |   B  | PRINT|           | 1PWD |   J  |   L  |   U  |   Y  |   ;  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |   ESC  |   A  |   R  |   S  |   T  |   G  |------|           |------|   K  |   N  |   E  |   I  |   O  |    '   |
+ * |   TAB  |   A  |   R  |   S  |   T  |   G  |------|           |------|   K  |   N  |   E  |   I  |   O  |    '   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  SHIFT |   Z  |   X  |   C  |   D  |   V  | HYPER|           |  MEH |   M  |   H  |   ,  |   .  |   /  |  SHIFT |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -59,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        | MUTE | PLAY |       | VOLDN| VOLUP|
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 | Space|  Tab |------|       |------| Back-|Enter |
+ *                                 | Space|  ESC |------|       |------| Back-|Enter |
  *                                 |      |      |  GUI |       |  GUI | space|      |
  *                                 `--------------------'       `--------------------'
  */
@@ -69,21 +78,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
        TG(CONF),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______,
         _______,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B, WC_PRNT,
-         KC_ESC,    KC_A,    KC_R,    KC_S,    KC_T,    KC_G,
+         KC_TAB,    KC_A, WC_CTLR, WC_ALTS, WC_SFTT,    KC_G,
          OS_SFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, OS_HYPR,
         OS_CTRL, _______, _______,  OS_ALT, OS_SYMB,
                                                      KC_MUTE, KC_MPLY,
                                                               _______,
-                                             KC_SPC,  KC_TAB,  OS_GUI,
+                                            WC_GUIS,  KC_ESC,  OS_GUI,
         // right hand
              WC_1PWM,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
               WC_1PW, TD(TD_J_NUMP),    KC_L,    KC_U,    KC_Y, KC_SCLN, _______,
-                         KC_K,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
+                         KC_K, WC_SFTN, WC_ALTE, WC_CTLI,    KC_O, KC_QUOT,
               OS_MEH,    KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  OS_SFT,
                                TG_NAVI,  OS_ALT, _______, _______, OS_CTRL,
              KC_VOLD, KC_VOLU,
              _______,
-              OS_GUI, KC_BSPC,  KC_ENT
+              OS_GUI, KC_BSPC, WC_GUIE
     ),
 /* Keymap 1: Symbol Layer
  *

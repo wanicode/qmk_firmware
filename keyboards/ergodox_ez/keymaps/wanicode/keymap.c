@@ -14,6 +14,13 @@
 #define NUMP 3 // numpad
 #define CONF 4 // configuration
 
+// layer colors
+#define RGBLIGHT_COLOR_LAYER_0 360,0x00,0xFF
+#define RGBLIGHT_COLOR_LAYER_1 0,0xFF,0xFF
+#define RGBLIGHT_COLOR_LAYER_2 240,0xFF,0xFF
+#define RGBLIGHT_COLOR_LAYER_3 120,0xFF,0xFF
+#define RGBLIGHT_COLOR_LAYER_4 270,0xFF,0xFF
+
 // keyaliases
 #define OS_SFT  OSM(MOD_LSFT)
 #define OS_CTRL OSM(MOD_LCTL)
@@ -39,12 +46,19 @@
 #define WC_GUIS LGUI_T(KC_SPC)
 #define WC_GUIE LGUI_T(KC_ENT)
 
+#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
+#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   VRSN,
   RGB_SLD
 };
+
+bool skip_leds = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -297,7 +311,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_SLD:
       if (record->event.pressed) {
         #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
+          rgblight_mode_noeeprom(1);
         #endif
       }
       return false;
@@ -309,7 +323,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
-  rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+  rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_0);
+  rgblight_mode_noeeprom(1);
 #endif
 };
 
@@ -317,6 +332,35 @@ LEADER_EXTERNS();
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+  uint8_t modifiders = get_mods();
+  uint8_t led_usb_state = host_keyboard_leds();
+  uint8_t one_shot = get_oneshot_mods();
+
+  if (!skip_leds) {
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+
+    // Since we're not using the LEDs here for layer indication anymore,
+    // then lets use them for modifier indicators.  Shame we don't have 4...
+    // Also, no "else", since we want to know each, independently.
+    if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
+      ergodox_right_led_2_on();
+      ergodox_right_led_2_set( 50 );
+    }
+    if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
+      ergodox_right_led_1_on();
+      ergodox_right_led_1_set( 10 );
+    }
+    if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
+      ergodox_right_led_3_on();
+      ergodox_right_led_3_set( 10 );
+    }
+
+  }
+
+
   LEADER_DICTIONARY() {
     leading = false;
     leader_end();
@@ -348,45 +392,40 @@ void matrix_scan_user(void) {
 
 // Runs whenever there is a layer state change.
 uint32_t layer_state_set_user(uint32_t state) {
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
-
   uint8_t layer = biton32(state);
   switch (layer) {
-      case 0:
+      case BASE:
         #ifdef RGBLIGHT_COLOR_LAYER_0
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+          rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_0);
+          rgblight_mode_noeeprom(1);
         #else
         #ifdef RGBLIGHT_ENABLE
           rgblight_init();
         #endif
         #endif
         break;
-      case 1:
-        ergodox_right_led_1_on();
+      case SYMB:
         #ifdef RGBLIGHT_COLOR_LAYER_1
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+          rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_1);
+          rgblight_mode_noeeprom(23);
         #endif
         break;
-      case 2:
-        ergodox_right_led_2_on();
+      case NAVI:
         #ifdef RGBLIGHT_COLOR_LAYER_2
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+          rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_2);
+          rgblight_mode_noeeprom(4);
         #endif
         break;
-      case 3:
-        ergodox_right_led_3_on();
+      case NUMP:
         #ifdef RGBLIGHT_COLOR_LAYER_3
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+          rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_3);
+          rgblight_mode_noeeprom(16);
         #endif
         break;
-      case 4:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
+      case CONF:
         #ifdef RGBLIGHT_COLOR_LAYER_4
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+          rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_4);
+          rgblight_mode_noeeprom(1);
         #endif
         break;
       case 5:

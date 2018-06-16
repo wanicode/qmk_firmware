@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B, WC_PRNT,
          KC_TAB,    KC_A, WC_CTLR, WC_ALTS, WC_SFTT,    KC_G,
          OS_SFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, OS_HYPR,
-        KC_BTN2, KC_BTN3, KC_BTN1, _______, OS_SYMB,
+        _______, _______, _______, _______, OS_SYMB,
                                                      KC_MUTE, KC_MPLY,
                                                               _______,
                                             WC_GUIS,  KC_ESC, _______,
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               WC_1PW,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, TG_NUMP,
                          KC_K, WC_SFTN, WC_ALTE, WC_CTLI,    KC_O, KC_QUOT,
               OS_MEH,    KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  OS_SFT,
-                               TG_NAVI, _______, _______, _______, _______,
+                               TG_NAVI, _______, _______, _______, TG_QWRT,
              KC_VOLD, KC_VOLU,
              _______,
              _______, KC_BSPC, WC_GUIE
@@ -151,9 +151,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      | HOME |PGDOWN| PGUP |  END |        |
+ * |        |      |      |      |      |      |      |           |      |      |      | UP   |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |  ALT | SHIFT|      |------|           |------|      | LEFT | DOWN |  UP  | RIGHT|        |
+ * |        |      |      |  ALT | SHIFT|      |------|           |------|      | LEFT | DOWN | RIGHT|      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -179,8 +179,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______, _______, _______,
     // right hand
        _______,  _______, _______, _______, _______, _______, _______,
-       _______,  _______, KC_HOME, KC_PGDN, KC_PGUP,  KC_END, _______,
-                 _______, KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, _______,
+       _______,  _______, _______,   KC_UP, _______, _______, _______,
+                 _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
        _______,  _______, _______, _______, _______, _______, _______,
                           _______, _______, _______, _______, _______,
        _______, _______,
@@ -397,7 +397,6 @@ uint32_t layer_state_set_user(uint32_t state) {
       case BASE:
         #ifdef RGBLIGHT_COLOR_LAYER_0
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_0);
-          rgblight_mode_noeeprom(1);
         #else
         #ifdef RGBLIGHT_ENABLE
           rgblight_init();
@@ -407,47 +406,21 @@ uint32_t layer_state_set_user(uint32_t state) {
       case SYMB:
         #ifdef RGBLIGHT_COLOR_LAYER_1
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_1);
-          rgblight_mode_noeeprom(23);
         #endif
         break;
       case NAVI:
         #ifdef RGBLIGHT_COLOR_LAYER_2
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_2);
-          rgblight_mode_noeeprom(4);
         #endif
         break;
       case NUMP:
         #ifdef RGBLIGHT_COLOR_LAYER_3
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_3);
-          rgblight_mode_noeeprom(16);
         #endif
         break;
       case CONF:
         #ifdef RGBLIGHT_COLOR_LAYER_4
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_4);
-          rgblight_mode_noeeprom(1);
-        #endif
-        break;
-      case 5:
-        ergodox_right_led_1_on();
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_5
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
-        #endif
-        break;
-      case 6:
-        ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_6
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
-        #endif
-        break;
-      case 7:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_7
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
         #endif
         break;
       default:

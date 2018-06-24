@@ -7,21 +7,24 @@
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-// layers
-#define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define NAVI 2 // navigation
-#define NUMP 3 // numpad
-#define CONF 4 // configuration
+#define _BASE 0
+#define _SYMB 1
+#define _NAVI 2
+#define _NUMP 3
+#define _CONF 4
 
 // layer colors
-#define RGBLIGHT_COLOR_LAYER_0 360,0x00,0xFF
+#define RGBLIGHT_COLOR_LAYER_0 360,0x00,0x00
 #define RGBLIGHT_COLOR_LAYER_1 0,0xFF,0xFF
 #define RGBLIGHT_COLOR_LAYER_2 240,0xFF,0xFF
 #define RGBLIGHT_COLOR_LAYER_3 120,0xFF,0xFF
 #define RGBLIGHT_COLOR_LAYER_4 270,0xFF,0xFF
 
-// keyaliases
+// more pronounced empty keys
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
+// Key aliases
 #define OS_SFT  OSM(MOD_LSFT)
 #define OS_CTRL OSM(MOD_LCTL)
 #define OS_ALT  OSM(MOD_LALT)
@@ -29,9 +32,7 @@
 #define OS_MEH  OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
-#define OS_SYMB OSL(SYMB)
-#define TG_NAVI TG(NAVI)
-#define TG_NUMP TG(NUMP)
+#define TG_CONF TG(_CONF)
 
 #define WC_PRNT LSFT(LGUI(KC_4))
 #define WC_1PW  LGUI(KC_BSLS)
@@ -41,10 +42,14 @@
 #define WC_ALTS LALT_T(KC_S)
 #define WC_CTLR LCTL_T(KC_R)
 #define WC_SFTN LSFT_T(KC_N)
+#define WC_NUMD LT(_NUMP, KC_D)
+#define WC_NAVA LT(_NAVI, KC_A)
 #define WC_ALTE LALT_T(KC_E)
 #define WC_CTLI LCTL_T(KC_I)
 #define WC_GUIS LGUI_T(KC_SPC)
 #define WC_GUIE LGUI_T(KC_ENT)
+#define WC_SYME LT(_SYMB, KC_ESC)
+#define WC_SYMB LT(_SYMB, KC_BSPC)
 
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
@@ -66,13 +71,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  CONF  |   1  |   2  |   3  |   4  |   5  |      |           | 1PWM |   6  |   7  |   8  |   9  |   0  |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   Q  |   W  |   F  |   P  |   B  | PRINT|           | 1PWD |   J  |   L  |   U  |   Y  |   ;  |  NUMP  |
+ * |        |   Q  |   W  |   F  |   P  |   B  | PRINT|           | 1PWD |   J  |   L  |   U  |   Y  |   ;  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |   TAB  |   A  |   R  |   S  |   T  |   G  |------|           |------|   K  |   N  |   E  |   I  |   O  |    '   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |  SHIFT |   Z  |   X  |   C  |   D  |   V  | HYPER|           |  MEH |   M  |   H  |   ,  |   .  |   /  |  SHIFT |
+ * |        |   Z  |   X  |   C  |   D  |   V  | HYPER|           |  MEH |   M  |   H  |   ,  |   .  |   /  |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | RMOUS| MMOUS| LMOUS|      | SYMB |                                       | NAVI |      |      |      |      |
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | MUTE | PLAY |       | VOLDN| VOLUP|
@@ -84,25 +89,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ergodox(  // layer 0 : default
+[_BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-       TG(CONF),    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______,
+        TG_CONF,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, _______,
         _______,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B, WC_PRNT,
-         KC_TAB,    KC_A, WC_CTLR, WC_ALTS, WC_SFTT,    KC_G,
-         OS_SFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, OS_HYPR,
-        _______, _______, _______, _______, OS_SYMB,
+         KC_TAB, WC_NAVA, WC_CTLR, WC_ALTS, WC_SFTT,    KC_G,
+        _______,    KC_Z,    KC_X,    KC_C, WC_NUMD,    KC_V, OS_HYPR,
+        _______, _______, _______, _______, _______,
                                                      KC_MUTE, KC_MPLY,
                                                               _______,
-                                            WC_GUIS,  KC_ESC, _______,
+                                            WC_GUIS, WC_SYME, _______,
         // right hand
              WC_1PWM,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
-              WC_1PW,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, TG_NUMP,
+              WC_1PW,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, _______,
                          KC_K, WC_SFTN, WC_ALTE, WC_CTLI,    KC_O, KC_QUOT,
-              OS_MEH,    KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  OS_SFT,
-                               TG_NAVI, _______, _______, _______, TG_QWRT,
+              OS_MEH,    KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, _______,
+                               _______, _______, _______, _______, _______,
              KC_VOLD, KC_VOLU,
              _______,
-             _______, KC_BSPC, WC_GUIE
+             _______, WC_SYMB, WC_GUIE
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -126,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] = LAYOUT_ergodox(
+[_SYMB] = LAYOUT_ergodox(
        // left hand
        _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, _______,
        _______, XXXXXXX, KC_CIRC,   KC_AT, KC_PLUS, KC_SLSH, _______,
@@ -168,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // NAVIGATION
-[NAVI] = LAYOUT_ergodox(
+[_NAVI] = LAYOUT_ergodox(
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, KC_LALT, KC_LSFT, _______,
@@ -209,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // Numpad
-[NUMP] = LAYOUT_ergodox(
+[_NUMP] = LAYOUT_ergodox(
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______, _______,
        _______, _______, _______, _______, _______, _______,
@@ -250,7 +255,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                 `--------------------'       `--------------------'
    */
   // Numpad
-  [CONF] = LAYOUT_ergodox(
+  [_CONF] = LAYOUT_ergodox(
          _______, _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______, _______,
          _______, _______, _______, _______, _______, _______,
@@ -394,7 +399,7 @@ void matrix_scan_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
   uint8_t layer = biton32(state);
   switch (layer) {
-      case BASE:
+      case _BASE:
         #ifdef RGBLIGHT_COLOR_LAYER_0
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_0);
         #else
@@ -403,22 +408,22 @@ uint32_t layer_state_set_user(uint32_t state) {
         #endif
         #endif
         break;
-      case SYMB:
+      case _SYMB:
         #ifdef RGBLIGHT_COLOR_LAYER_1
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_1);
         #endif
         break;
-      case NAVI:
+      case _NAVI:
         #ifdef RGBLIGHT_COLOR_LAYER_2
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_2);
         #endif
         break;
-      case NUMP:
+      case _NUMP:
         #ifdef RGBLIGHT_COLOR_LAYER_3
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_3);
         #endif
         break;
-      case CONF:
+      case _CONF:
         #ifdef RGBLIGHT_COLOR_LAYER_4
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_4);
         #endif

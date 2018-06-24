@@ -54,6 +54,7 @@
 #define WC_ALTS LALT_T(KC_S)
 #define WC_CTLR LCTL_T(KC_R)
 #define WC_SFTN LSFT_T(KC_N)
+#define WC_NUMD LT(NUMP, KC_D)
 #define WC_ALTE LALT_T(KC_E)
 #define WC_CTLI LCTL_T(KC_I)
 #define WC_GUIS LGUI_T(KC_SPC)
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { TG_CONF, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_VOLU, KC_MPLY, KC_VOLD, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    WC_1PWM  },
   { _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    _______, KC_MUTE, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, WC_1PW   },
   { KC_TAB,  KC_A,    WC_CTLR, WC_ALTS, WC_SFTT, KC_G,    OS_HYPR, _______, OS_MEH,  KC_K,    WC_SFTN, WC_ALTE, WC_CTLI, KC_O,    KC_QUOT  },
-  { _______, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______, _______, KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, _______  },
+  { _______, KC_Z,    KC_X,    KC_C,    WC_NUMD, KC_V,    _______, _______, _______, KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, _______  },
   { _______, _______, _______, TG_NUMP, OS_SYMB, WC_GUIS, KC_ESC,  _______, KC_BSPC, WC_GUIE, TG_NAVI, _______, _______, _______, _______  },
  },
 

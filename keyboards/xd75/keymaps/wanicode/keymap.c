@@ -15,15 +15,18 @@
  */
 #include "xd75.h"
 
-// Layer shorthand
-#define BASE 0
-#define SYMB 1
-#define NAVI 2
-#define NUMP 3
-#define CONF 4
+// more pronounced empty keys
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
+
+#define _BASE 0
+#define _SYMB 1
+#define _NAVI 2
+#define _NUMP 3
+#define _CONF 4
 
 // layer colors
-#define RGBLIGHT_COLOR_LAYER_0 360,0x00,0xFF
+#define RGBLIGHT_COLOR_LAYER_0 360,0x00,0x00
 #define RGBLIGHT_COLOR_LAYER_1 0,0xFF,0xFF
 #define RGBLIGHT_COLOR_LAYER_2 240,0xFF,0xFF
 #define RGBLIGHT_COLOR_LAYER_3 120,0xFF,0xFF
@@ -41,10 +44,7 @@
 #define OS_MEH  OSM(MOD_MEH)
 #define OS_HYPR OSM(MOD_HYPR)
 
-#define OS_SYMB OSL(SYMB)
-#define TG_NAVI TG(NAVI)
-#define TG_NUMP TG(NUMP)
-#define TG_CONF TG(CONF)
+#define TG_CONF TG(_CONF)
 
 #define WC_PRNT LSFT(LGUI(KC_4))
 #define WC_1PW  LGUI(KC_BSLS)
@@ -54,16 +54,20 @@
 #define WC_ALTS LALT_T(KC_S)
 #define WC_CTLR LCTL_T(KC_R)
 #define WC_SFTN LSFT_T(KC_N)
-#define WC_NUMD LT(NUMP, KC_D)
+#define WC_NUMD LT(_NUMP, KC_D)
+#define WC_NAVA LT(_NAVI, KC_A)
 #define WC_ALTE LALT_T(KC_E)
 #define WC_CTLI LCTL_T(KC_I)
 #define WC_GUIS LGUI_T(KC_SPC)
 #define WC_GUIE LGUI_T(KC_ENT)
+#define WC_SYME LT(_SYMB, KC_ESC)
+#define WC_SYMB LT(_SYMB, KC_BSPC)
 
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -78,25 +82,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * |        | Z      | X      | C      | D      | V      |        |        |        | M      | H      | ,      | .      | /      |        |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
- * |        |        |        | NUMPAD | SYMB   | SPACE  | ESC    |        | BSPACE | ENTER  | NAVI   |        |        |        |        |
+ * |        |        |        | SHIFT  | SPACE  | ESC    |        |        |        | BSPACE | ENTER  | SHIFT  |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
- [BASE] = { /* Colemak DH */
+ [_BASE] = { /* Colemak DH */
   { TG_CONF, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_VOLU, KC_MPLY, KC_VOLD, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    WC_1PWM  },
   { _______, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    _______, KC_MUTE, _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, WC_1PW   },
-  { KC_TAB,  KC_A,    WC_CTLR, WC_ALTS, WC_SFTT, KC_G,    OS_HYPR, _______, OS_MEH,  KC_K,    WC_SFTN, WC_ALTE, WC_CTLI, KC_O,    KC_QUOT  },
+  { KC_TAB,  WC_NAVA, WC_CTLR, WC_ALTS, WC_SFTT, KC_G,    OS_HYPR, _______, OS_MEH,  KC_K,    WC_SFTN, WC_ALTE, WC_CTLI, KC_O,    KC_QUOT  },
   { _______, KC_Z,    KC_X,    KC_C,    WC_NUMD, KC_V,    _______, _______, _______, KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, _______  },
-  { _______, _______, _______, TG_NUMP, OS_SYMB, WC_GUIS, KC_ESC,  _______, KC_BSPC, WC_GUIE, TG_NAVI, _______, _______, _______, _______  },
+  { _______, _______, _______, OS_SFT,  WC_GUIS, WC_SYME, _______, _______, _______, WC_SYMB, WC_GUIE, OS_SFT,  _______, _______, _______  },
  },
 
 /* SYMBOLS
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | F1     | F2     | F3     | F4     | F5     | F6     |        |        |        | F7     | F8     | F9     | F10    | F11    | F12    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        | ^      | @      | +      | /      |        |        |        | \      | -      | _      | #      |        |        |
+ * |        |        | !      | @      | +      | /      |        |        |        | \      | -      | _      | ?      |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | [      | {      | <      | (      | !      |        |        |        | ?      | )      | >      | }      | ]      |        |
+ * |        | [      | {      | <      | (      | ^      |        |        |        | #      | )      | >      | }      | ]      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        | ~      | %      | $      | &      |        |        |        | |      | =      | `      | *      |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -104,10 +108,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
- [SYMB] = { /* Symbols */
+ [_SYMB] = { /* Symbols */
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, _______, KC_CIRC, KC_AT,   KC_PLUS, KC_SLSH, _______, _______, _______, KC_BSLS, KC_MINS, KC_UNDS, KC_HASH, _______, _______  },
-  { _______, KC_LBRC, KC_LCBR, KC_LABK, KC_LPRN, KC_EXLM, _______, _______, _______, KC_QUES, KC_RPRN, KC_RABK, KC_RCBR, KC_LBRC, _______  },
+  { _______, _______, KC_EXLM, KC_AT,   KC_PLUS, KC_SLSH, _______, _______, _______, KC_BSLS, KC_MINS, KC_UNDS, KC_QUES, _______, _______  },
+  { _______, KC_LBRC, KC_LCBR, KC_LABK, KC_LPRN, KC_CIRC, _______, _______, _______, KC_HASH, KC_RPRN, KC_RABK, KC_RCBR, KC_RBRC, _______  },
   { _______, _______, KC_TILD, KC_PERC, KC_DLR,  KC_AMPR, _______, _______, _______, KC_PIPE, KC_EQL,  KC_GRV,  KC_ASTR, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
@@ -126,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
- [NAVI] = { /* Navigation */
+ [_NAVI] = { /* Navigation */
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______  },
@@ -148,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
- [NUMP] = { /* NumPad */
+ [_NUMP] = { /* NumPad */
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSLS, KC_PAST, KC_PMNS, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    KC_PPLS, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HASH, KC_4,    KC_5,    KC_6,    KC_PEQL, _______  },
@@ -170,7 +174,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
- [CONF] = { /* Configuration */
+ [_CONF] = { /* Configuration */
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET    },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______  },
@@ -205,7 +209,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 uint32_t layer_state_set_user(uint32_t state) {
   uint8_t layer = biton32(state);
   switch (layer) {
-      case BASE:
+      case _BASE:
         #ifdef RGBLIGHT_COLOR_LAYER_0
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_0);
         #else
@@ -214,22 +218,22 @@ uint32_t layer_state_set_user(uint32_t state) {
         #endif
         #endif
         break;
-      case SYMB:
+      case _SYMB:
         #ifdef RGBLIGHT_COLOR_LAYER_1
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_1);
         #endif
         break;
-      case NAVI:
+      case _NAVI:
         #ifdef RGBLIGHT_COLOR_LAYER_2
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_2);
         #endif
         break;
-      case NUMP:
+      case _NUMP:
         #ifdef RGBLIGHT_COLOR_LAYER_3
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_3);
         #endif
         break;
-      case CONF:
+      case _CONF:
         #ifdef RGBLIGHT_COLOR_LAYER_4
           rgblight_sethsv_noeeprom(RGBLIGHT_COLOR_LAYER_4);
         #endif

@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B, WC_PRNT,
          KC_TAB, WC_NAVA, WC_CTLR, WC_ALTS, WC_SFTT,    KC_G,
         _______,    KC_Z,    KC_X,    KC_C, WC_NUMD,    KC_V, OS_HYPR,
-        _______, _______, _______, _______, _______,
+        _______, _______, _______, _______,  OS_SFT,
                                                      KC_MUTE, KC_MPLY,
                                                               _______,
                                             WC_GUIS, WC_SYME, _______,
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               WC_1PW,    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, _______,
                          KC_K, WC_SFTN, WC_ALTE, WC_CTLI,    KC_O, KC_QUOT,
               OS_MEH,    KC_M,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, _______,
-                               _______, _______, _______, _______, _______,
+                                OS_SFT, _______, _______, _______, _______,
              KC_VOLD, KC_VOLU,
              _______,
              _______, WC_SYMB, WC_GUIE
@@ -114,9 +114,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,---------------------------------------------------.           ,--------------------------------------------------.
  * |         |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |   ^  |   @  |   +  |   /  |      |           |      |   \  |   -  |   _  |   #  |      |   F12  |
+ * |         |      |   !  |   @  |   +  |   /  |      |           |      |   \  |   -  |   _  |   ?  |      |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   [  |   {  |   <  |   (  |   !  |------|           |------|   ?  |   )  |   >  |   }  |   ]  |        |
+ * |         |   [  |   {  |   <  |   (  |   ^  |------|           |------|   #  |   )  |   >  |   }  |   ]  |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |      |   ~  |   %  |   $  |   &  |      |           |      |   |  |   =  |   `  |   *  |      |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -134,8 +134,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_SYMB] = LAYOUT_ergodox(
        // left hand
        _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, _______,
-       _______, XXXXXXX, KC_CIRC,   KC_AT, KC_PLUS, KC_SLSH, _______,
-       _______, KC_LBRC, KC_LCBR, KC_LABK, KC_LPRN, KC_EXLM,
+       _______, XXXXXXX, KC_EXLM,   KC_AT, KC_PLUS, KC_SLSH, _______,
+       _______, KC_LBRC, KC_LCBR, KC_LABK, KC_LPRN, KC_CIRC,
        _______, XXXXXXX, KC_TILD, KC_PERC,  KC_DLR, KC_AMPR, _______,
        _______, _______, _______, _______, _______,
                                                     _______, _______,
@@ -143,8 +143,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            _______, _______, _______,
        // right hand
        _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
-       _______, KC_BSLS, KC_MINS, KC_UNDS, KC_HASH, XXXXXXX,  KC_F12,
-                KC_QUES, KC_RPRN, KC_RABK, KC_RCBR, KC_RBRC, _______,
+       _______, KC_BSLS, KC_MINS, KC_UNDS, KC_QUES, XXXXXXX,  KC_F12,
+                KC_HASH, KC_RPRN, KC_RABK, KC_RCBR, KC_RBRC, _______,
        _______, KC_PIPE,  KC_EQL,  KC_GRV, KC_ASTR, XXXXXXX, _______,
                          _______, _______, _______, _______, _______,
        _______, _______,
@@ -277,7 +277,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
+    [1] = ACTION_LAYER_TAP_TOGGLE(_SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

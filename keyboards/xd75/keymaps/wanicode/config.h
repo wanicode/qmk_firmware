@@ -3,7 +3,7 @@
 
 #include "config_common.h"
 
-#define LEADER_TIMEOUT 300
+#define LEADER_TIMEOUT 1000
 
 #define ONESHOT_TAP_TOGGLE 2
 #define ONESHOT_TIMEOUT 3000

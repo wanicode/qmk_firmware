@@ -82,7 +82,7 @@
 #define WC_MEHL MEH_T(KC_L)
 
 #define WC_FUND LT(_FUNC, KC_DEL)
-#define WC_MCRD LT(_MCRO, D)
+#define WC_MCRS LT(_MCRO, KC_SPC)
 #define WC_NUMD LT(_NUMP, KC_DEL)
 #define WC_NAVS LT(_NAVI, KC_SPC)
 #define WC_NAVT LT(_NAVI, KC_TAB)
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, KC_Q,    KC_W,    WC_HYPF, WC_MEHP, KC_B,    _______, _______, _______, KC_J,    WC_MEHL, WC_HYPU, KC_Y,    KC_SCLN, _______  },
   { WC_NAVT, WC_MGA,  WC_CTLR, WC_ALTS, WC_SFTT, KC_G,    _______, _______, _______, KC_K,    WC_SFTN, WC_ALTE, WC_CTLI, WC_MGO,  KC_QUOT  },
   { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    _______, _______, _______, KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT  },
-  { KC_LCTL, KC_LALT, _______, WC_NAVS, WC_NUMS, WC_MGEN, _______, _______, _______, WC_MGES, WC_SYMB, WC_FUND, _______, KC_RALT, KC_RCTL  },
+  { KC_LCTL, KC_LALT, _______, WC_MCRS, WC_NUMS, WC_MGEN, _______, _______, _______, WC_MGES, WC_SYMB, WC_FUND, _______, KC_RALT, KC_RCTL  },
  },
 
 /* SYMBOLS
@@ -231,7 +231,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_MCRO] = { /* Macros */
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, WC_LOCK, _______, WC_PRNT, WC_1PW,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
-  { _______, _______, _______, _______, WC_1PWM, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
+  { _______, _______, _______, KC_MPLY, WC_1PWM, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  },
  },
@@ -328,5 +328,5 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     }
 
-  return update_tri_layer_state(state, _NAVI, _FUNC, _CONF);
+  return update_tri_layer_state(state, _MCRO, _FUNC, _CONF);
 };

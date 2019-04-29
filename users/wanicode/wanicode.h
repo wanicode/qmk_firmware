@@ -41,26 +41,31 @@ enum userspace_layers {
 #define WC_SFTT LSFT_T(KC_T)
 #define WC_SFTN RSFT_T(KC_N)
 #define WC_SFT4 RSFT_T(KC_4)
+#define WC_STF4 LSFT_T(KC_4)
 #define WC_SFF4 RSFT_T(KC_F4)
 
 // ModTap Alt
 #define WC_ALTS LALT_T(KC_S)
 #define WC_ALTE RALT_T(KC_E)
 #define WC_ALT5 RALT_T(KC_5)
+#define WC_ATF5 LALT_T(KC_F5)
 #define WC_ALF5 RALT_T(KC_F5)
 
 // ModTap Ctrl
 #define WC_CTLR LCTL_T(KC_R)
 #define WC_CTLI RCTL_T(KC_I)
 #define WC_CTL6 RCTL_T(KC_6)
+#define WC_CLF6 LCTL_T(KC_F6)
 #define WC_CTF6 RCTL_T(KC_F6)
+#define WC_MCEN LCTL_T(KC_ENT)
 
 // ModTap GUI
 #define WC_MGEN LGUI_T(KC_ENT)
 #define WC_MGES RGUI_T(KC_ESC)
 #define WC_MGA  LGUI_T(KC_A)
 #define WC_MGO  RGUI_T(KC_O)
-#define WC_MGF1 RGUI_T(KC_F11)
+#define WC_GUF1 LGUI_T(KC_F11)
+#define WC_GF11 RGUI_T(KC_F11)
 
 // ModTap Hyper
 #define WC_HYPF ALL_T(KC_F)
@@ -71,21 +76,24 @@ enum userspace_layers {
 #define WC_MEHL MEH_T(KC_L)
 
 // LayerTap
-#define WC_FUND LT(_FUNC, KC_DEL)
-#define WC_MCRS LT(_MCRO, KC_SPC)
+#define WC_MCRT LT(_MCRO, KC_TAB)
 #define WC_NUMD LT(_NUMP, KC_DEL)
 #define WC_NAVS LT(_NAVI, KC_SPC)
 #define WC_NAVT LT(_NAVI, KC_TAB)
+#define WC_NAVE LT(_NAVI, KC_ESC)
+#define WC_LNVE LT(_NAVI, KC_ENT)
 #define WC_NUMS LT(_NUMP, KC_SPC)
 #define WC_NUME LT(_NUMP, KC_ESC)
 #define WC_SYMD LT(_SYMB, KC_DEL)
 #define WC_SYMB LT(_SYMB, KC_BSPC)
 #define WC_SYME LT(_SYMB, KC_ENT)
+#define WC_LFNE LT(_FUNC, KC_ESC)
 
 #define WC_BASE DF(_BASE)
 #define WC_GAME DF(_GAME)
 
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
+#define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 
 // Transparent Multikeys
 #define ___________________________________________ _______, _______, _______, _______, _______
@@ -95,21 +103,22 @@ enum userspace_layers {
 #define _____________COLEMAK_MOD_DH_L1_____________ KC_Q,    KC_W,    KC_F,    KC_P,    KC_B
 #define _____________COLEMAK_MOD_DH_L2_____________ WC_MGA,  WC_CTLR, WC_ALTS, WC_SFTT, KC_G
 #define _____________COLEMAK_MOD_DH_L3_____________ KC_Z,    KC_X,    KC_C,    KC_D,    KC_V
-#define _____________COLEMAK_MOD_DH_L4_____________ KC_MEH,  _______, WC_MCRS, WC_NUMS, WC_MGEN
+#define _____________COLEMAK_MOD_DH_L4_____________ KC_MEH,  _______, WC_MCRT, WC_NUMS, WC_LNVE
 #define _____________COLEMAK_MOD_DH_R1_____________ KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
 #define _____________COLEMAK_MOD_DH_R2_____________ KC_K,    WC_SFTN, WC_ALTE, WC_CTLI, WC_MGO
 #define _____________COLEMAK_MOD_DH_R3_____________ KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH
-#define _____________COLEMAK_MOD_DH_R4_____________ WC_MGES, WC_SYMB, WC_FUND, _______, KC_MEH
+#define _____________COLEMAK_MOD_DH_R4_____________ WC_LFNE, WC_SYMB, KC_DEL,  _______, KC_MEH
 #define _________________________________COLEMAK_MOD_DH_1_______________________________________ _____________COLEMAK_MOD_DH_L1_____________, _____________COLEMAK_MOD_DH_R1_____________
 #define _________________________________COLEMAK_MOD_DH_2_______________________________________ _____________COLEMAK_MOD_DH_L2_____________, _____________COLEMAK_MOD_DH_R2_____________
 #define _________________________________COLEMAK_MOD_DH_3_______________________________________ _____________COLEMAK_MOD_DH_L3_____________, _____________COLEMAK_MOD_DH_R3_____________
+#define _________________________________COLEMAK_MOD_DH_4_______________________________________ _____________COLEMAK_MOD_DH_L4_____________, _____________COLEMAK_MOD_DH_R4_____________
 
 // Symbol Multikeys
 #define _________________SYMBOLS_L1________________ _______, KC_EXLM, KC_AT,   KC_PLUS, KC_QUOT
-#define _________________SYMBOLS_L2________________ KC_DQUO, KC_MINS, KC_UNDS, KC_BSLS, _______
-#define _________________SYMBOLS_L3________________ KC_LBRC, KC_LCBR, KC_LABK, KC_LPRN, KC_CIRC
-#define _________________SYMBOLS_R1________________ KC_HASH, KC_RPRN, KC_RABK, KC_RCBR, KC_RBRC
-#define _________________SYMBOLS_R2________________ _______, KC_TILD, KC_PERC, KC_DLR,  KC_AMPR
+#define _________________SYMBOLS_R1________________ KC_DQUO, KC_MINS, KC_UNDS, KC_BSLS, _______
+#define _________________SYMBOLS_L2________________ KC_LBRC, KC_LCBR, KC_LABK, KC_LPRN, KC_CIRC
+#define _________________SYMBOLS_R2________________ KC_HASH, KC_RPRN, KC_RABK, KC_RCBR, KC_RBRC
+#define _________________SYMBOLS_L3________________ _______, KC_TILD, KC_PERC, KC_DLR,  KC_AMPR
 #define _________________SYMBOLS_R3________________ KC_PIPE, KC_EQL,  KC_GRV,  KC_ASTR, _______
 #define _______________________________________SYMBOLS_1________________________________________ _________________SYMBOLS_L1________________, _________________SYMBOLS_R1________________
 #define _______________________________________SYMBOLS_2________________________________________ _________________SYMBOLS_L2________________, _________________SYMBOLS_R2________________
@@ -124,11 +133,17 @@ enum userspace_layers {
 #define ________________________________________NUMBERS_________________________________________ _________________NUMBERS_LEFT______________, _________________NUMBERS_RIGHT_____________
 
 // Function Multikeys
-#define _________________FUNCTIONS_LEFT____________ KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
-#define _________________FUNCTIONS_RIGHT___________ KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
-#define _________________FUNCPAD_ROW2______________ _______, WC_SFF4, WC_ALF5, WC_CTF6, WC_MGF1
-#define _________________FUNCPAD_ROW3______________ _______, KC_F1,   KC_F2,   KC_F3,   KC_F12
-#define ________________________________________FUNCTIONS_______________________________________ _________________FUNCTIONS_LEFT____________, _________________FUNCTIONS_RIGHT___________
+#define ________________FUNCPAD_ROW1_______________ _______, KC_F7,   KC_F8,   KC_F9,   KC_F10
+#define ________________FUNCPAD_ROW2_______________ _______, WC_SFF4, WC_ALF5, WC_CTF6, WC_GF11
+#define ________________FUNCPAD_ROW3_______________ _______, KC_F1,   KC_F2,   KC_F3,   KC_F12
+#define _______________RFUNCPAD_ROW1_______________ KC_F10,  KC_F9,   KC_F8,   KC_F7,   _______
+#define _______________RFUNCPAD_ROW2_______________ WC_GUF1, WC_CLF6, WC_ATF5, WC_STF4, _______
+#define _______________RFUNCPAD_ROW3_______________ KC_F12,  KC_F3,   KC_F2,   KC_F1,   _______
+
+
+// Navigation Multikeys
+#define _________________NAVIGATION_ROW1___________ KC_PGUP, KC_HOME, KC_UP,   KC_END,  _______
+#define _________________NAVIGATION_ROW2___________ KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, _______
 
 // Macro Multikeys
 #define _________________MACROS_L1_________________ WC_LOCK, _______, WC_PRNT, WC_1PW,  _______
